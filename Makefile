@@ -2,6 +2,9 @@
 
 all: test build
 
+bin: test
+	CGO_ENABLED=0 go build -o ./bin/kustomizer ./cmd/kustomizer
+
 tidy:
 	rm -f go.sum; go mod tidy -compat=1.23
 
@@ -12,7 +15,10 @@ vet:
 	go vet ./...
 
 build:
-	CGO_ENABLED=0 go build -o ./bin/kustomizer ./cmd/kustomizer
+	COSIGN_EXPERIMENTAL=1 goreleaser build --clean
+
+release:
+	COSIGN_EXPERIMENTAL=1 goreleaser release --clean
 
 .PHONY: install
 install:

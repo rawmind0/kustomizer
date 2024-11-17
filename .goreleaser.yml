@@ -66,7 +66,7 @@ before:
     - make dockerfile
 dockers:
   - image_templates:
-      - 'docker.io/rawmind0/{{ .ProjectName }}:{{ .Tag }}-amd64'
+      - 'docker.io/rawmind/{{ .ProjectName }}:{{ .Tag }}-amd64'
     dockerfile: Dockerfile.distroless
     use: buildx
     goos: linux
@@ -81,7 +81,7 @@ dockers:
       - "--label=org.opencontainers.image.source={{ .GitURL }}"
       - "--platform=linux/amd64"
   - image_templates:
-      - 'docker.io/rawmind0/{{ .ProjectName }}:{{ .Tag }}-arm64'
+      - 'docker.io/rawmind/{{ .ProjectName }}:{{ .Tag }}-arm64'
     dockerfile: Dockerfile.distroless
     use: buildx
     goos: linux
@@ -96,14 +96,14 @@ dockers:
       - "--label=org.opencontainers.image.source={{ .GitURL }}"
       - "--platform=linux/arm64"
 docker_manifests:
-  - name_template: 'docker.io/rawmind0/{{ .ProjectName }}:{{ .Tag }}'
+  - name_template: 'docker.io/rawmind/{{ .ProjectName }}:{{ .Tag }}'
     image_templates:
-      - 'docker.io/rawmind0/{{ .ProjectName }}:{{ .Tag }}-amd64'
-      - 'docker.io/rawmind0/{{ .ProjectName }}:{{ .Tag }}-arm64'
-  - name_template: 'docker.io/rawmind0/{{ .ProjectName }}:latest'
+      - 'docker.io/rawmind/{{ .ProjectName }}:{{ .Tag }}-amd64'
+      - 'docker.io/rawmind/{{ .ProjectName }}:{{ .Tag }}-arm64'
+  - name_template: 'docker.io/rawmind/{{ .ProjectName }}:latest'
     image_templates:
-      - 'docker.io/rawmind0/{{ .ProjectName }}:{{ .Tag }}-amd64'
-      - 'docker.io/rawmind0/{{ .ProjectName }}:{{ .Tag }}-arm64'
+      - 'docker.io/rawmind/{{ .ProjectName }}:{{ .Tag }}-amd64'
+      - 'docker.io/rawmind/{{ .ProjectName }}:{{ .Tag }}-arm64'
 docker_signs:
   - cmd: cosign
     args:
