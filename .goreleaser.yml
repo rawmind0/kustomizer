@@ -58,6 +58,7 @@ signs:
       - '--key=/tmp/cosign.key'
       - '--output-signature=${signature}'
       - '${artifact}'
+      - '--yes'
     artifacts: checksum
 before:
   hooks:
