@@ -1,3 +1,4 @@
+version: 2
 project_name: kustomizer
 changelog:
   use: github-native
@@ -60,12 +61,12 @@ signs:
     artifacts: checksum
 brews:
   - name: kustomizer
-    tap:
+    repository:
       owner: stefanprodan
       name: homebrew-tap
-      branch: main
+      branch: master
       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
-    folder: Formula
+    directory: Formula
     homepage: "https://kustomizer.dev/"
     description: "Kustomizer CLI"
     dependencies:
