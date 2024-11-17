@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/fluxcd/pkg/ssa"
+	ssautils "github.com/fluxcd/pkg/ssa/utils"
 	"github.com/spf13/cobra"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 
@@ -105,7 +105,7 @@ func runInspectArtifactCmd(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("pulling %s failed: %w", url, err)
 	}
 
-	objects, err := ssa.ReadObjects(strings.NewReader(yml))
+	objects, err := ssautils.ReadObjects(strings.NewReader(yml))
 	if err != nil {
 		return err
 	}
@@ -135,7 +135,7 @@ func runInspectArtifactCmd(cmd *cobra.Command, args []string) error {
 	rootCmd.Println("Checksum:", meta.Checksum)
 	rootCmd.Println("Resources:")
 	for _, object := range objects {
-		rootCmd.Println("-", ssa.FmtUnstructured(object))
+		rootCmd.Println("-", ssautils.FmtUnstructured(object))
 		images := getContainerImages(object)
 		for _, image := range images {
 			rootCmd.Println("  -", image)

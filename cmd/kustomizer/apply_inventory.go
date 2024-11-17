@@ -22,6 +22,7 @@ import (
 	"sort"
 
 	"github.com/fluxcd/pkg/ssa"
+	ssautils "github.com/fluxcd/pkg/ssa/utils"
 	"github.com/spf13/cobra"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -149,7 +150,7 @@ func runApplyInventoryCmd(cmd *cobra.Command, args []string) error {
 	var stageTwo []*unstructured.Unstructured
 
 	for _, u := range objects {
-		if ssa.IsClusterDefinition(u) {
+		if ssautils.IsClusterDefinition(u) {
 			stageOne = append(stageOne, u)
 		} else {
 			stageTwo = append(stageTwo, u)

@@ -24,7 +24,8 @@ import (
 	apiruntime "k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"k8s.io/client-go/rest"
-	"sigs.k8s.io/cli-utils/pkg/kstatus/polling"
+	//"sigs.k8s.io/cli-utils/pkg/kstatus/polling"
+	"github.com/fluxcd/cli-utils/pkg/kstatus/polling"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/client/apiutil"
 )
@@ -58,7 +59,12 @@ func newKubeStatusPoller(rcg genericclioptions.RESTClientGetter) (*polling.Statu
 		return nil, err
 	}
 
-	restMapper, err := apiutil.NewDynamicRESTMapper(kubeConfig)
+	httpClient, err := rest.HTTPClientFor(kubeConfig)
+	if err != nil {
+		return nil, err
+	}
+
+	restMapper, err := apiutil.NewDynamicRESTMapper(kubeConfig, httpClient)
 	if err != nil {
 		return nil, err
 	}

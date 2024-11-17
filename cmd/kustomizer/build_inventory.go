@@ -31,6 +31,7 @@ import (
 
 	"filippo.io/age"
 	"github.com/fluxcd/pkg/ssa"
+	ssautils "github.com/fluxcd/pkg/ssa/utils"
 	"github.com/spf13/cobra"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"sigs.k8s.io/kustomize/api/krusty"
@@ -112,13 +113,13 @@ func runBuildInventoryCmd(cmd *cobra.Command, args []string) error {
 
 	switch buildInventoryArgs.output {
 	case "yaml":
-		yml, err := ssa.ObjectsToYAML(objects)
+		yml, err := ssautils.ObjectsToYAML(objects)
 		if err != nil {
 			return err
 		}
 		rootCmd.Println(yml)
 	case "json":
-		json, err := ssa.ObjectsToJSON(objects)
+		json, err := ssautils.ObjectsToJSON(objects)
 		if err != nil {
 			return err
 		}
@@ -139,7 +140,7 @@ func buildManifests(ctx context.Context, kustomizePath string, filePaths []strin
 			return nil, nil, err
 		}
 
-		objs, err := ssa.ReadObjects(bytes.NewReader(data))
+		objs, err := ssautils.ReadObjects(bytes.NewReader(data))
 		if err != nil {
 			return nil, nil, fmt.Errorf("%s: %w", kustomizePath, err)
 		}
@@ -157,14 +158,14 @@ func buildManifests(ctx context.Context, kustomizePath string, filePaths []strin
 				return nil, nil, err
 			}
 
-			objs, err := ssa.ReadObjects(bufio.NewReader(ms))
+			objs, err := ssautils.ReadObjects(bufio.NewReader(ms))
 			ms.Close()
 			if err != nil {
 				return nil, nil, fmt.Errorf("%s: %w", manifest, err)
 			}
 
 			for _, obj := range objs {
-				if ssa.IsKubernetesObject(obj) && !ssa.IsKustomization(obj) {
+				if ssautils.IsKubernetesObject(obj) && !ssautils.IsKustomization(obj) {
 					objects = append(objects, obj)
 				}
 			}
@@ -185,7 +186,7 @@ func buildManifests(ctx context.Context, kustomizePath string, filePaths []strin
 
 			digests = append(digests, meta.Digest)
 
-			objs, err := ssa.ReadObjects(strings.NewReader(yml))
+			objs, err := ssautils.ReadObjects(strings.NewReader(yml))
 			if err != nil {
 				return nil, nil, fmt.Errorf("extracting manifests from %s failed: %w", ociURL, err)
 			}
@@ -200,7 +201,7 @@ func buildManifests(ctx context.Context, kustomizePath string, filePaths []strin
 				return nil, nil, err
 			}
 
-			objs, err := ssa.ReadObjects(bytes.NewReader(data))
+			objs, err := ssautils.ReadObjects(bytes.NewReader(data))
 			if err != nil {
 				return nil, nil, fmt.Errorf("%s: %w", kustomizePath, err)
 			}
@@ -337,7 +338,7 @@ func applyPatches(kFilePath string, objects []*unstructured.Unstructured) ([]byt
 
 	const input = "resources.yaml"
 	kustomization.Resources = append(kustomization.Resources, input)
-	yml, err := ssa.ObjectsToYAML(objects)
+	yml, err := ssautils.ObjectsToYAML(objects)
 	if err != nil {
 		return nil, err
 	}

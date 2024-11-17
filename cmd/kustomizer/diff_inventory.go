@@ -26,6 +26,7 @@ import (
 	"strings"
 
 	"github.com/fluxcd/pkg/ssa"
+	ssautils "github.com/fluxcd/pkg/ssa/utils"
 	"github.com/spf13/cobra"
 	"sigs.k8s.io/yaml"
 
@@ -149,11 +150,11 @@ func runDiffInventoryCmd(cmd *cobra.Command, args []string) error {
 			continue
 		}
 
-		if change.Action == string(ssa.CreatedAction) {
+		if change.Action == ssa.CreatedAction {
 			rootCmd.Println(`►`, change.Subject, "created")
 		}
 
-		if change.Action == string(ssa.ConfiguredAction) {
+		if change.Action == ssa.ConfiguredAction {
 			rootCmd.Println(`►`, change.Subject, "drifted")
 
 			liveYAML, _ := yaml.Marshal(liveObject)
@@ -184,7 +185,7 @@ func runDiffInventoryCmd(cmd *cobra.Command, args []string) error {
 		}
 
 		for _, object := range staleObjects {
-			rootCmd.Println(`►`, fmt.Sprintf("%s deleted", ssa.FmtUnstructured(object)))
+			rootCmd.Println(`►`, fmt.Sprintf("%s deleted", ssautils.FmtUnstructured(object)))
 		}
 	}
 

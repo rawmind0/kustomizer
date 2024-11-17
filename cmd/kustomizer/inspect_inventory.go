@@ -21,6 +21,7 @@ import (
 	"fmt"
 
 	"github.com/fluxcd/pkg/ssa"
+	ssautils "github.com/fluxcd/pkg/ssa/utils"
 	"github.com/spf13/cobra"
 
 	"github.com/stefanprodan/kustomizer/pkg/inventory"
@@ -94,7 +95,7 @@ func runInspectInventoryCmd(cmd *cobra.Command, args []string) error {
 		return err
 	}
 	for _, entry := range entries {
-		rootCmd.Println("-", ssa.FmtObjMetadata(entry))
+		rootCmd.Println("-", ssautils.FmtObjMetadata(entry))
 	}
 
 	return nil

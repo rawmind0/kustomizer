@@ -27,6 +27,7 @@ import (
 	"time"
 
 	"github.com/fluxcd/pkg/ssa"
+	ssautils "github.com/fluxcd/pkg/ssa/utils"
 	"github.com/spf13/cobra"
 
 	"github.com/stefanprodan/kustomizer/pkg/registry"
@@ -54,7 +55,7 @@ The push command uses the credentials from '~/.docker/config.json'.`,
 	--revision="$(git tag --points-at HEAD)/$(git rev-parse HEAD)"
 
   # Push to a local registry
-  kustomizer push artifact oci://localhost:5000/repo:latest -f ./deploy/manifests 
+  kustomizer push artifact oci://localhost:5000/repo:latest -f ./deploy/manifests
 
   # Push and sign artifact with cosign
   export COSIGN_PASSWORD="<KEY-PASS>"
@@ -64,7 +65,7 @@ The push command uses the credentials from '~/.docker/config.json'.`,
   kustomizer push artifact oci://docker.io/user/repo:v1.0.0 -f ./deploy/manifests --sign
 
   # Push encrypted artifact
-  kustomizer push artifact oci://docker.io/user/repo:v1.0.0 -f ./deploy/manifests --age-recipients ./keys/pub.txt 
+  kustomizer push artifact oci://docker.io/user/repo:v1.0.0 -f ./deploy/manifests --age-recipients ./keys/pub.txt
 `,
 	RunE: runPushArtifactCmd,
 }
@@ -128,10 +129,10 @@ func runPushArtifactCmd(cmd *cobra.Command, args []string) error {
 	sort.Sort(ssa.SortableUnstructureds(objects))
 
 	for _, object := range objects {
-		rootCmd.Println(ssa.FmtUnstructured(object))
+		rootCmd.Println(ssautils.FmtUnstructured(object))
 	}
 
-	yml, err := ssa.ObjectsToYAML(objects)
+	yml, err := ssautils.ObjectsToYAML(objects)
 	if err != nil {
 		return err
 	}
