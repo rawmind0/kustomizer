@@ -96,17 +96,16 @@ dockers:
       - "--label=org.opencontainers.image.source={{ .GitURL }}"
       - "--platform=linux/arm64"
 docker_manifests:
-  - name_template: 'ghcr.io/rawmind0/{{ .ProjectName }}:{{ .Tag }}'
+  - name_template: 'docker.io/rawmind0/{{ .ProjectName }}:{{ .Tag }}'
     image_templates:
       - 'docker.io/rawmind0/{{ .ProjectName }}:{{ .Tag }}-amd64'
       - 'docker.io/rawmind0/{{ .ProjectName }}:{{ .Tag }}-arm64'
-  - name_template: 'ghcr.io/rawmind0/{{ .ProjectName }}:latest'
+  - name_template: 'docker.io/rawmind0/{{ .ProjectName }}:latest'
     image_templates:
       - 'docker.io/rawmind0/{{ .ProjectName }}:{{ .Tag }}-amd64'
       - 'docker.io/rawmind0/{{ .ProjectName }}:{{ .Tag }}-arm64'
 docker_signs:
   - cmd: cosign
-    stdin: '{{ .Env.COSIGN_PASSWORD }}'
     args:
       - "sign"
       - "${artifact}"
