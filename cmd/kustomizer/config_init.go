@@ -17,8 +17,8 @@ limitations under the License.
 package main
 
 import (
-	"github.com/spf13/cobra"
 	"github.com/rawmind0/kustomizer/pkg/config"
+	"github.com/spf13/cobra"
 )
 
 var configInit = &cobra.Command{

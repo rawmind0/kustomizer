@@ -24,6 +24,7 @@ install-dev:
 install-plugin:
 	CGO_ENABLED=0 go build -o /usr/local/bin/kubectl-kustomizer ./cmd/kustomizer
 
+GIT_BRANCH ?= master
 ENVTEST_ARCH ?= amd64
 ENVTEST_ASSETS_DIR=$(shell pwd)/testbin
 ENVTEST_KUBERNETES_VERSION=latest
@@ -56,16 +57,16 @@ endif
 
 .PHONY: release-docs
 release-docs:
-	git checkout main && git pull; \
+	git checkout $(GIT_BRANCH) && git pull; \
 	README=$$(cat README.md); \
 	git checkout gh-pages && git pull; \
 	echo "$$README" > README.md; \
 	git add README.md; \
 	git commit -m "update docs"; \
 	git push origin gh-pages; \
-	git checkout main
+	git checkout $(GIT_BRANCH)
 
-DEMO_IMAGE ?= ghcr.io/rawmind0/kustomizer-demo-app
+DEMO_IMAGE ?= docker.io/rawmind0/kustomizer-demo-app
 DEMO_TAG ?= 0.0.1
 publish-demo:
 	kustomizer push artifact -k ./examples/demo-app oci://$(DEMO_IMAGE):$(DEMO_TAG) --sign --cosign-key ~/.cosign/cosign.key
