@@ -65,7 +65,7 @@ release-docs:
 	git push origin gh-pages; \
 	git checkout main
 
-DEMO_IMAGE ?= ghcr.io/stefanprodan/kustomizer-demo-app
+DEMO_IMAGE ?= ghcr.io/rawmind0/kustomizer-demo-app
 DEMO_TAG ?= 0.0.1
 publish-demo:
 	kustomizer push artifact -k ./examples/demo-app oci://$(DEMO_IMAGE):$(DEMO_TAG) --sign --cosign-key ~/.cosign/cosign.key

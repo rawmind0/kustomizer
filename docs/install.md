@@ -1,16 +1,16 @@
 # Install
 
 The Kustomizer CLI is available as a binary executable for all major platforms,
-the binaries can be downloaded from GitHub [releases](https://github.com/stefanprodan/kustomizer/releases).
+the binaries can be downloaded from GitHub [releases](https://github.com/rawmind0/kustomizer/releases).
 The binaries checksums are signed with [cosign](https://github.com/sigstore/cosign)
 and each release comes with a Software Bill of Materials (SBOM) in SPDX format.
 
 === "Install with brew"
 
     Install the latest release on macOS or Linux with:
-    
+
     ```shell
-    brew install stefanprodan/tap/kustomizer
+    brew install rawmind0/tap/kustomizer
     ```
 
     Note that the Homebrew formula will setup shell autocompletion for Bash, Fish and Zsh.
@@ -18,7 +18,7 @@ and each release comes with a Software Bill of Materials (SBOM) in SPDX format.
 === "Install with curl"
 
     Install the latest release on macOS or Linux with:
-    
+
     ```shell
     curl -s https://kustomizer.dev/install.sh | bash
     ```
@@ -33,14 +33,14 @@ and each release comes with a Software Bill of Materials (SBOM) in SPDX format.
     copies the kustomizer binary to `/usr/local/bin`.
     If [cosign](https://github.com/sigstore/cosign) is found in PATH,
     the script will verify the signature of the release checksums using the public key from
-    [stefanprodan.keybase.pub/cosign/kustomizer.pub](https://stefanprodan.keybase.pub/cosign/kustomizer.pub).
+    [rawmind0.keybase.pub/cosign/kustomizer.pub](https://rawmind0.keybase.pub/cosign/kustomizer.pub).
 
 === "Install from source"
 
     Using Go >= 1.17:
-    
+
     ```shell
-    go install github.com/stefanprodan/kustomizer/cmd/kustomizer@latest
+    go install github.com/rawmind0/kustomizer/cmd/kustomizer@latest
     ```
 
 ## Shell autocompletion
@@ -50,7 +50,7 @@ Configure your shell to load kustomizer completions:
 === "Bash"
 
     To load completion run:
-    
+
     ```shell
     . <(kustomizer completion bash)
     ```
@@ -74,7 +74,7 @@ Configure your shell to load kustomizer completions:
 
     To configure your fish shell to [load completions](http://fishshell.com/docs/current/index.html#completion-own)
     for each session write this script to your completions dir:
-    
+
     ```shell
     kustomizer completion fish > ~/.config/fish/completions/kustomizer.fish
     ```
@@ -88,7 +88,7 @@ Configure your shell to load kustomizer completions:
     ```
 
     To configure your powershell shell to load completions for each session add to your powershell profile:
-    
+
     Windows:
 
     ```shell
@@ -105,24 +105,24 @@ Configure your shell to load kustomizer completions:
 === "Zsh"
 
     To load completion run:
-    
+
     ```shell
     . <(kustomizer completion zsh) && compdef _kustomizer kustomizer
     ```
 
     To configure your zsh shell to load completions for each session add to your zshrc:
-    
+
     ```shell
     # ~/.zshrc or ~/.profile
     command -v kustomizer >/dev/null && . <(kustomizer completion zsh) && compdef _kustomizer kustomizer
     ```
 
     or write a cached file in one of the completion directories in your ${fpath}:
-    
+
     ```shell
     echo "${fpath// /\n}" | grep -i completion
     kustomizer completion zsh > _kustomizer
-    
+
     mv _kustomizer ~/.oh-my-zsh/completions  # oh-my-zsh
     mv _kustomizer ~/.zprezto/modules/completion/external/src/  # zprezto
     ```
@@ -130,21 +130,21 @@ Configure your shell to load kustomizer completions:
 ## Container Images
 
 Signed release images are available at
-[ghcr.io/stefanprodan/kustomizer](https://github.com/stefanprodan/kustomizer/pkgs/container/kustomizer).
+[ghcr.io/rawmind0/kustomizer](https://github.com/rawmind0/kustomizer/pkgs/container/kustomizer).
 The container images are multi-arch (amd64 and arm64) and they are tagged with the version number
-e.g. `ghcr.io/stefanprodan/kustomizer:v2.0.0`.
+e.g. `ghcr.io/rawmind0/kustomizer:v2.0.0`.
 
 Verify the latest image with cosign:
 
 ```shell
-cosign verify --key https://stefanprodan.keybase.pub/cosign/kustomizer.pub \
-  ghcr.io/stefanprodan/kustomizer:latest
+cosign verify --key https://rawmind0.keybase.pub/cosign/kustomizer.pub \
+  ghcr.io/rawmind0/kustomizer:latest
 ```
 
 Pull the image and run kustomizer with docker:
 
 ```shell
-docker run ghcr.io/stefanprodan/kustomizer /kustomizer -v
+docker run ghcr.io/rawmind0/kustomizer /kustomizer -v
 ```
 
 ## Configuration
@@ -161,13 +161,13 @@ first create a config file at `~/.kustomizer/config` with:
 === "example output"
 
     ```console
-    config written to /Users/stefanprodan/.kustomizer/config
+    config written to /Users/rawmind0/.kustomizer/config
     ```
 
 Make adjustments to the config YAML, then validate the config with:
 
 === "command"
-    
+
     ```shell
     kustomizer config view
     ```

@@ -24,7 +24,7 @@ import (
 	ssautils "github.com/fluxcd/pkg/ssa/utils"
 	"github.com/spf13/cobra"
 
-	"github.com/stefanprodan/kustomizer/pkg/inventory"
+	"github.com/rawmind0/kustomizer/pkg/inventory"
 )
 
 var inspectInventoryCmd = &cobra.Command{

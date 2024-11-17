@@ -20,7 +20,7 @@ to deal with securing the access from CI to your production systems.
 !!! info "Install with Homebrew"
 
     ```
-    brew install stefanprodan/tap/kustomizer fluxcd/tap/flux
+    brew install rawmind0/tap/kustomizer fluxcd/tap/flux
     ```
 
 ## Login to GitHub Container Registry
@@ -56,15 +56,15 @@ $ echo $GITHUB_TOKEN | docker login ghcr.io -u ${GITHUB_USER} --password-stdin
 Clone the Kustomizer Git repository locally:
 
 ```bash
-git clone https://github.com/stefanprodan/kustomizer
+git clone https://github.com/rawmind0/kustomizer
 cd kustomizer
 ```
 
-You'll be using a sample web application composed of two [podinfo](https://github.com/stefanprodan/podinfo)
+You'll be using a sample web application composed of two [podinfo](https://github.com/rawmind0/podinfo)
 instances called `frontend` and `backend`, and a redis instance called `cache`.
 The web application's Kubernetes configuration is located at `./examples/demo-app`.
 
-## Publish the app manifests 
+## Publish the app manifests
 
 Export the repository URL and app version:
 
@@ -91,8 +91,8 @@ Deployment/kustomizer-demo-app/cache
 Deployment/kustomizer-demo-app/frontend
 HorizontalPodAutoscaler/kustomizer-demo-app/backend
 HorizontalPodAutoscaler/kustomizer-demo-app/frontend
-pushing image ghcr.io/stefanprodan/kustomizer-demo-app:1.0.0
-published digest ghcr.io/stefanprodan/kustomizer-demo-app@sha256:91d2bd8e0f1620e17e9d4c308ab87903644a952969d8ff52b601be0bffdca096
+pushing image ghcr.io/rawmind0/kustomizer-demo-app:1.0.0
+published digest ghcr.io/rawmind0/kustomizer-demo-app@sha256:91d2bd8e0f1620e17e9d4c308ab87903644a952969d8ff52b601be0bffdca096
 ```
 
 Tag the config image as latest:
@@ -110,7 +110,7 @@ flux install
 ```
 
 !!! info "GitOps"
- 
+
     For Flux to manage your cluster in a GitOps manner,
     you could use the [flux bootstrap](https://fluxcd.io/flux/installation/#bootstrap) instead of `flux install`.
 
@@ -170,16 +170,16 @@ kubectl alpha events --for kustomization/demo-app -n flux-system
 ```
 
 !!! info "Drift detection and correction"
-    
+
     Even if nothing changed in the OCI source, Flux verifies if the cluster
     state has drifted from the desired state. If a drift is detected,
-    Flux re-applies the Kubernetes objects that changed and waits for the drift 
-    to be corrected. Then it emits a Kubernetes events with the list of objects 
+    Flux re-applies the Kubernetes objects that changed and waits for the drift
+    to be corrected. Then it emits a Kubernetes events with the list of objects
     that were corrected.
 
 ## Promote changes to production
 
-Assuming you're deploying the `latest` version to staging, you could introduce 
+Assuming you're deploying the `latest` version to staging, you could introduce
 a dedicated tag for production e.g. `stable`.
 
 On the production cluster, you'll configure Flux to reconcile the artifacts tagged as `stable`:
@@ -235,7 +235,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup kustomizer
-        uses: stefanprodan/kustomizer/action@main
+        uses: rawmind0/kustomizer/action@main
       - name: Push
         run: |
           kustomizer push artifact ${ARTIFACT}:${GITHUB_REF_NAME} \

@@ -22,10 +22,10 @@ runs:
         VERSION=${{ inputs.version }}
 
         if [ -z $VERSION ]; then
-          VERSION=$(curl https://api.github.com/repos/stefanprodan/kustomizer/releases/latest -sL | grep tag_name | sed -E 's/.*"([^"]+)".*/\1/' | cut -c 2-)
+          VERSION=$(curl https://api.github.com/repos/rawmind0/kustomizer/releases/latest -sL | grep tag_name | sed -E 's/.*"([^"]+)".*/\1/' | cut -c 2-)
         fi
 
-        BIN_URL="https://github.com/stefanprodan/kustomizer/releases/download/v${VERSION}/kustomizer_${VERSION}_linux_${ARCH}.tar.gz"
+        BIN_URL="https://github.com/rawmind0/kustomizer/releases/download/v${VERSION}/kustomizer_${VERSION}_linux_${ARCH}.tar.gz"
         curl -sL ${BIN_URL} -o /tmp/kustomizer.tar.gz
         mkdir -p /tmp/kustomizer
         tar -C /tmp/kustomizer/ -zxvf /tmp/kustomizer.tar.gz

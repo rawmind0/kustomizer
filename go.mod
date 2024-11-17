@@ -1,4 +1,4 @@
-module github.com/stefanprodan/kustomizer
+module github.com/rawmind0/kustomizer
 
 go 1.23
 

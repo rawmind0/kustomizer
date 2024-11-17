@@ -263,7 +263,7 @@ spec:
           restartPolicy: Never
           containers:
           - name: version
-            image: ghcr.io://ghcr.io/stefanprodan/podinfo:v6.0.0
+            image: ghcr.io://ghcr.io/rawmind0/podinfo:v6.0.0
             imagePullPolicy: IfNotPresent
             command:
             - ./podinfo

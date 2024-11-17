@@ -25,7 +25,7 @@ spec:
       serviceAccountName: demo
       containers:
         - name: frontend
-          image: stefanprodan/podinfo:3.2.3
+          image: rawmind0/podinfo:3.2.3
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -99,7 +99,7 @@ spec:
       serviceAccountName: demo
       containers:
         - name: frontend
-          image: stefanprodan/podinfo:3.2.3
+          image: rawmind0/podinfo:3.2.3
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -173,7 +173,7 @@ spec:
       serviceAccountName: demo
       containers:
         - name: frontend
-          image: stefanprodan/podinfo:3.2.3
+          image: rawmind0/podinfo:3.2.3
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -247,7 +247,7 @@ spec:
       serviceAccountName: demo
       containers:
         - name: frontend
-          image: stefanprodan/podinfo:3.2.3
+          image: rawmind0/podinfo:3.2.3
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -321,7 +321,7 @@ spec:
       serviceAccountName: demo
       containers:
         - name: frontend
-          image: stefanprodan/podinfo:3.2.3
+          image: rawmind0/podinfo:3.2.3
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -395,7 +395,7 @@ spec:
       serviceAccountName: demo
       containers:
         - name: frontend
-          image: stefanprodan/podinfo:3.2.3
+          image: rawmind0/podinfo:3.2.3
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -469,7 +469,7 @@ spec:
       serviceAccountName: demo
       containers:
         - name: frontend
-          image: stefanprodan/podinfo:3.2.3
+          image: rawmind0/podinfo:3.2.3
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -543,7 +543,7 @@ spec:
       serviceAccountName: demo
       containers:
         - name: frontend
-          image: stefanprodan/podinfo:3.2.3
+          image: rawmind0/podinfo:3.2.3
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -617,7 +617,7 @@ spec:
       serviceAccountName: demo
       containers:
         - name: frontend
-          image: stefanprodan/podinfo:3.2.3
+          image: rawmind0/podinfo:3.2.3
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -691,7 +691,7 @@ spec:
       serviceAccountName: demo
       containers:
         - name: frontend
-          image: stefanprodan/podinfo:3.2.3
+          image: rawmind0/podinfo:3.2.3
           imagePullPolicy: IfNotPresent
           ports:
             - name: http

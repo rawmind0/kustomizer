@@ -1,10 +1,10 @@
 # kustomizer
 
-[![report](https://goreportcard.com/badge/github.com/stefanprodan/kustomizer)](https://goreportcard.com/report/github.com/stefanprodan/kustomizer)
-[![e2e](https://github.com/stefanprodan/kustomizer/workflows/e2e/badge.svg)](https://github.com/stefanprodan/kustomizer/actions)
-[![codecov](https://codecov.io/gh/stefanprodan/kustomizer/branch/main/graph/badge.svg?token=KEU5W1LSZC)](https://codecov.io/gh/stefanprodan/kustomizer)
-[![license](https://img.shields.io/github/license/stefanprodan/kustomizer.svg)](https://github.com/stefanprodan/kustomizer/blob/main/LICENSE)
-[![release](https://img.shields.io/github/release/stefanprodan/kustomizer/all.svg)](https://github.com/stefanprodan/kustomizer/releases)
+[![report](https://goreportcard.com/badge/github.com/rawmind0/kustomizer)](https://goreportcard.com/report/github.com/rawmind0/kustomizer)
+[![e2e](https://github.com/rawmind0/kustomizer/workflows/e2e/badge.svg)](https://github.com/rawmind0/kustomizer/actions)
+[![codecov](https://codecov.io/gh/rawmind0/kustomizer/branch/main/graph/badge.svg?token=KEU5W1LSZC)](https://codecov.io/gh/rawmind0/kustomizer)
+[![license](https://img.shields.io/github/license/rawmind0/kustomizer.svg)](https://github.com/rawmind0/kustomizer/blob/main/LICENSE)
+[![release](https://img.shields.io/github/release/rawmind0/kustomizer/all.svg)](https://github.com/rawmind0/kustomizer/releases)
 
 Kustomizer is an experimental package manager for distributing Kubernetes configuration as OCI artifacts.
 It offers commands to publish, fetch, diff, customize, validate, apply and prune Kubernetes resources.
@@ -15,14 +15,14 @@ and requires a Kubernetes cluster **v1.20** or newer.
 ## Install
 
 The Kustomizer CLI is available as a binary executable for all major platforms,
-the binaries can be downloaded from GitHub [releases](https://github.com/stefanprodan/kustomizer/releases).
+the binaries can be downloaded from GitHub [releases](https://github.com/rawmind0/kustomizer/releases).
 The binaries checksums are signed with Cosign
 and each release comes with a Software Bill of Materials (SBOM) in SPDX format.
 
 Install the latest release on macOS or Linux with Homebrew:
 
 ```bash
-brew install stefanprodan/tap/kustomizer
+brew install rawmind0/tap/kustomizer
 ```
 
 For other installation methods,

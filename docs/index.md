@@ -19,7 +19,7 @@ Kustomizer comes with commands for managing OCI artifacts:
 - `kustomizer pull artifact oci://<image-url>:<tag>`
 - `kustomizer inspect artifact oci://<image-url>:<tag>`
 - `kustomizer diff artifact <oci url> <oci url>`
- 
+
 Kustomizer is compatible with Docker Hub, GHCR, ACR, ECR, GCR, Artifactory,
 self-hosted Docker Registry and others. For auth, it uses the credentials from `~/.docker/config.json`.
 
@@ -131,5 +131,5 @@ Compared to `kustomize build`, `kustomizer build -k` does things a little differ
 
 ## License
 
-Kustomizer is [Apache 2.0 licensed](https://github.com/stefanprodan/kustomizer/blob/main/LICENSE)
+Kustomizer is [Apache 2.0 licensed](https://github.com/rawmind0/kustomizer/blob/main/LICENSE)
 and accepts contributions via GitHub pull requests.

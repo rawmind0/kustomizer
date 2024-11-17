@@ -2,7 +2,7 @@
 
 Kustomizer has builtin support for encrypting and decrypting Kubernetes configuration (packaged as OCI artifacts)
 using Actually Good Encryption (age) asymmetric keys.
-[Age](https://github.com/FiloSottile/age) is a modern and secure encryption tool 
+[Age](https://github.com/FiloSottile/age) is a modern and secure encryption tool
 with small explicit keys that is a viable alternative to [PGP](https://en.wikipedia.org/wiki/Pretty_Good_Privacy).
 
 This guide shows you how to securely distribute sensitive Kubernetes configuration to trusted consumers.
@@ -51,7 +51,7 @@ cat id_age.pub >> recipients.txt
 
 ## Publish encrypted artifacts
 
-To encrypt Kubernetes configuration with your users' public keys, you can point Kustomizer 
+To encrypt Kubernetes configuration with your users' public keys, you can point Kustomizer
 at the recipients file when pushing artifacts to a container registry:
 
 ```shell
@@ -76,7 +76,7 @@ To inspect an artifact encrypted with your public key:
 
 ```console
 $ kustomizer inspect artifact oci://ghcr.io/my-org/my-app:1.0.0 \
-    --age-identities ./id_age 
+    --age-identities ./id_age
 Artifact: oci://ghcr.io/my-org/my-app@sha256:1801d42d5459e81119dad543a7f1080ed2aadc92dcbb7c9dabf282692d6bf29d
 BuiltBy: kustomizer/v2.0.0
 CreatedAt: 2021-12-29T08:35:40Z
@@ -89,16 +89,16 @@ Resources:
 - Service/kustomizer-demo-app/cache
 - Service/kustomizer-demo-app/frontend
 - Deployment/kustomizer-demo-app/backend
-  - ghcr.io/stefanprodan/podinfo:6.0.0
+  - ghcr.io/rawmind0/podinfo:6.0.0
 - Deployment/kustomizer-demo-app/cache
   - public.ecr.aws/docker/library/redis:6.2.0
 - Deployment/kustomizer-demo-app/frontend
-  - ghcr.io/stefanprodan/podinfo:6.0.0
+  - ghcr.io/rawmind0/podinfo:6.0.0
 - HorizontalPodAutoscaler/kustomizer-demo-app/backend
 - HorizontalPodAutoscaler/kustomizer-demo-app/frontend
 ```
 
-All Kustomizer commands that pull artifacts from container registries expose the 
+All Kustomizer commands that pull artifacts from container registries expose the
 `--age-identities` flag, e.g.:
 
 ```shell

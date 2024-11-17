@@ -11,7 +11,7 @@ To follow this guide you'll need a GitHub account and a Kubernetes cluster versi
 Install the latest release on macOS or Linux with:
 
 ```shell
-brew install stefanprodan/tap/kustomizer
+brew install rawmind0/tap/kustomizer
 ```
 
 For other installation methods, see the CLI [install documentation](install.md).
@@ -41,7 +41,7 @@ echo <PAT> | docker login ghcr.io -u ${GITHUB_USER} --password-stdin
 
 ## Publish the app config
 
-You'll be using a sample web application composed of two [podinfo](https://github.com/stefanprodan/podinfo)
+You'll be using a sample web application composed of two [podinfo](https://github.com/rawmind0/podinfo)
 instances called `frontend` and `backend`, and a redis instance called `cache`.
 
 ### Clone the demo app repository
@@ -49,7 +49,7 @@ instances called `frontend` and `backend`, and a redis instance called `cache`.
 Clone the Kustomizer Git repository locally:
 
 ```shell
-git clone https://github.com/stefanprodan/kustomizer
+git clone https://github.com/rawmind0/kustomizer
 cd kustomizer
 ```
 
@@ -80,8 +80,8 @@ Deployment/kustomizer-demo-app/cache
 Deployment/kustomizer-demo-app/frontend
 HorizontalPodAutoscaler/kustomizer-demo-app/backend
 HorizontalPodAutoscaler/kustomizer-demo-app/frontend
-pushing image ghcr.io/stefanprodan/kustomizer-demo-app:1.0.0
-published digest ghcr.io/stefanprodan/kustomizer-demo-app@sha256:91d2bd8e0f1620e17e9d4c308ab87903644a952969d8ff52b601be0bffdca096
+pushing image ghcr.io/rawmind0/kustomizer-demo-app:1.0.0
+published digest ghcr.io/rawmind0/kustomizer-demo-app@sha256:91d2bd8e0f1620e17e9d4c308ab87903644a952969d8ff52b601be0bffdca096
 ```
 
 With the above command, Kustomizer builds the Kustomize overlay at `./examples/demo-app/`,
@@ -93,10 +93,10 @@ After you run the command, the image repository can be accessed at
 !!! info "Generating Kubernetes manifests"
 
     Besides Kustomize overlays, Kustomizer can package plain Kuberentes manifests.
-    
-    If you're using [Cue](https://cuelang.org/) to define your app config, export the 
+
+    If you're using [Cue](https://cuelang.org/) to define your app config, export the
     manifests to a multi-doc YAML file and pass the path to Kustomizer with `-f <path to .yaml>` e.g.:
-    
+
     ```shell
     cue export -p my-app -o yaml > my-app.yaml
     kustomizer push artifact oci://docker.io/my-org/my-app:1.0.0 -f my-app.yaml
@@ -120,7 +120,7 @@ Push the new version to GHCR:
 
 ```shell
 kustomizer push artifact oci://${CONFIG_IMAGE}:${CONFIG_VERSION} \
-  -k ./examples/demo-app/ 
+  -k ./examples/demo-app/
 ```
 
 Tag the config image as latest:
@@ -137,9 +137,9 @@ List all the available versions of the app config ordered by semver:
 
 ```console
 $ kustomizer list artifacts oci://${CONFIG_IMAGE} --semver="*"
-VERSION	URL                                                  
-1.0.1  	oci://ghcr.io/stefanprodan/kustomizer-demo-app:1.0.1	
-1.0.0  	oci://ghcr.io/stefanprodan/kustomizer-demo-app:1.0.0
+VERSION	URL
+1.0.1  	oci://ghcr.io/rawmind0/kustomizer-demo-app:1.0.1
+1.0.0  	oci://ghcr.io/rawmind0/kustomizer-demo-app:1.0.0
 ```
 
 ### Install the app
@@ -151,7 +151,7 @@ $ kustomizer apply inventory kustomizer-demo-app --wait --prune \
   --artifact oci://${CONFIG_IMAGE}:1.0.0 \
   --source ${CONFIG_IMAGE} \
   --revision 1.0.0
-pulling ghcr.io/stefanprodan/kustomizer-demo-app:1.0.0
+pulling ghcr.io/rawmind0/kustomizer-demo-app:1.0.0
 applying 10 manifest(s)...
 Namespace/kustomizer-demo-app created
 ConfigMap/kustomizer-demo-app/redis-config-bd2fcfgt6k created
@@ -176,8 +176,8 @@ List inventories with:
 
 ```console
 $ kustomizer get inventories -n default
-NAME               	ENTRIES	SOURCE                                  	REVISION	LAST APPLIED         
-kustomizer-demo-app	10     	ghcr.io/stefanprodan/kustomizer-demo-app	1.0.0  	  	2021-12-16T10:33:10Z
+NAME               	ENTRIES	SOURCE                                  	REVISION	LAST APPLIED
+kustomizer-demo-app	10     	ghcr.io/rawmind0/kustomizer-demo-app	1.0.0  	  	2021-12-16T10:33:10Z
 ```
 
 At apply time, Kustomizer creates an inventory to keep track of the set of resources applied together.
@@ -190,10 +190,10 @@ Inspect the inventory with:
 $ kustomizer inspect inv kustomizer-demo-app -n default
 Inventory: default/kustomizer-demo-app
 LastAppliedAt: 2021-12-20T23:05:45Z
-Source: oci://ghcr.io/stefanprodan/kustomizer-demo-app
+Source: oci://ghcr.io/rawmind0/kustomizer-demo-app
 Revision: 1.0.0
 Artifacts:
-- oci://ghcr.io/stefanprodan/kustomizer-demo-app@sha256:19ded6e1dbe3eb859bd0f0fa6aa1960f6975097af8f19e252b951cf3e9e9e6e2
+- oci://ghcr.io/rawmind0/kustomizer-demo-app@sha256:19ded6e1dbe3eb859bd0f0fa6aa1960f6975097af8f19e252b951cf3e9e9e6e2
 Resources:
 - Namespace/kustomizer-demo-app
 - ConfigMap/kustomizer-demo-app/redis-config-bd2fcfgt6k
@@ -212,10 +212,10 @@ At apply time, Kustomizer saves the artifact SHA-2 digest in the inventory.
 !!! info "Using digests"
 
     For deterministic and repeatable apply operations, you can specify the digest instead of the image tag e.g.:
-    
+
     ```shell
     kustomizer apply inventory kustomizer-demo-app --wait --prune \
-      --artifact oci://ghcr.io/stefanprodan/kustomizer-demo-app@sha256:19ded6e1dbe3eb859bd0f0fa6aa1960f6975097af8f19e252b951cf3e9e9e6e2
+      --artifact oci://ghcr.io/rawmind0/kustomizer-demo-app@sha256:19ded6e1dbe3eb859bd0f0fa6aa1960f6975097af8f19e252b951cf3e9e9e6e2
     ```
 
 ### Update the app
@@ -224,7 +224,7 @@ Pull the latest version and review the changes to the live version:
 
 ```console
 $ kustomizer diff inventory kustomizer-demo-app --prune \
-    --artifact oci://${CONFIG_IMAGE}:latest 
+    --artifact oci://${CONFIG_IMAGE}:latest
 ► Deployment/kustomizer-demo-app/cache drifted
 @@ -5,7 +5,7 @@
      deployment.kubernetes.io/revision: "1"
@@ -249,7 +249,7 @@ $ kustomizer diff inventory kustomizer-demo-app --prune \
 With the above command, Kustomizer performs a server-side apply dry-run for each resource,
 compares the result with the live version and prints the diff.
 If there are Kubernetes secrets in the diff output, their values will be masked.
-With `--prune`, the diff command will print all the stale objects 
+With `--prune`, the diff command will print all the stale objects
 that would be garbage collected at apply time.
 
 
@@ -260,7 +260,7 @@ $ kustomizer apply inventory kustomizer-demo-app --wait --prune \
   --artifact oci://${CONFIG_IMAGE}:latest \
   --source ${CONFIG_IMAGE} \
   --revision 1.0.1
-pulling ghcr.io/stefanprodan/kustomizer-demo-app:latest
+pulling ghcr.io/rawmind0/kustomizer-demo-app:latest
 applying 10 manifest(s)...
 Namespace/kustomizer-demo-app unchanged
 ConfigMap/kustomizer-demo-app/redis-config-bd2fcfgt6k unchanged
@@ -283,7 +283,7 @@ Inspect the latest version to find its digest:
 
 ```shell
 $ kustomizer inspect artifact oci://${CONFIG_IMAGE}:latest | grep oci://
-Artifact: oci://ghcr.io/stefanprodan/kustomizer-demo-app@sha256:19ded6e1dbe3eb859bd0f0fa6aa1960f6975097af8f19e252b951cf3e9e9e6e2
+Artifact: oci://ghcr.io/rawmind0/kustomizer-demo-app@sha256:19ded6e1dbe3eb859bd0f0fa6aa1960f6975097af8f19e252b951cf3e9e9e6e2
 ```
 
 ### Uninstall the app

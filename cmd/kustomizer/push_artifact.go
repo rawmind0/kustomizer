@@ -30,7 +30,7 @@ import (
 	ssautils "github.com/fluxcd/pkg/ssa/utils"
 	"github.com/spf13/cobra"
 
-	"github.com/stefanprodan/kustomizer/pkg/registry"
+	"github.com/rawmind0/kustomizer/pkg/registry"
 )
 
 var pushArtifactCmd = &cobra.Command{

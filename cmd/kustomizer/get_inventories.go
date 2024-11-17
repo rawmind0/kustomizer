@@ -25,7 +25,7 @@ import (
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 
-	"github.com/stefanprodan/kustomizer/pkg/inventory"
+	"github.com/rawmind0/kustomizer/pkg/inventory"
 )
 
 var getInventories = &cobra.Command{

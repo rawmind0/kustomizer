@@ -23,7 +23,7 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/stefanprodan/kustomizer/pkg/registry"
+	"github.com/rawmind0/kustomizer/pkg/registry"
 )
 
 var pullArtifactCmd = &cobra.Command{

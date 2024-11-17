@@ -29,8 +29,8 @@ set -e
 VERSION=${1}
 DEFAULT_BIN_DIR="/usr/local/bin"
 BIN_DIR=${2:-"${DEFAULT_BIN_DIR}"}
-GITHUB_REPO="stefanprodan/kustomizer"
-COSIGN_PUB_KEY="https://stefanprodan.keybase.pub/cosign/kustomizer.pub"
+GITHUB_REPO="rawmind0/kustomizer"
+COSIGN_PUB_KEY="https://rawmind0.keybase.pub/cosign/kustomizer.pub"
 
 # Helper functions for logs
 info() {

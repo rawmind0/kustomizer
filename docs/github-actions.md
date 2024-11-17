@@ -11,7 +11,7 @@ add the following steps to your GitHub workflow:
 ```yaml
     steps:
       - name: Setup Kustomizer CLI
-        uses: stefanprodan/kustomizer/action@main
+        uses: rawmind0/kustomizer/action@main
         with:
           version: 2.0.0 # defaults to latest
           arch: amd64 # can be amd64 or arm64
@@ -46,7 +46,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
       - name: Setup kustomizer
-        uses: stefanprodan/kustomizer/action@main
+        uses: rawmind0/kustomizer/action@main
       - name: Push
         run: |
           kustomizer push artifact ${ARTIFACT}:${{ github.ref_name }} -f ./deploy \
@@ -86,7 +86,7 @@ jobs:
       - name: Setup cosign
         uses: sigstore/cosign-installer@main
       - name: Setup kustomizer
-        uses: stefanprodan/kustomizer/action@main
+        uses: rawmind0/kustomizer/action@main
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
@@ -139,7 +139,7 @@ jobs:
       - name: Setup cosign
         uses: sigstore/cosign-installer@main
       - name: Setup kustomizer
-        uses: stefanprodan/kustomizer/action@main
+        uses: rawmind0/kustomizer/action@main
       - name: Verify signature
         run: |
           kustomizer inspect artifact ${ARTIFACT}:${{ github.event.inputs.name }} --verify
@@ -172,7 +172,7 @@ jobs:
         with:
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
       - name: Setup kustomizer
-        uses: stefanprodan/kustomizer/action@main
+        uses: rawmind0/kustomizer/action@main
       - name: Diff
         run: |
           kustomizer diff inventory ${{ github.event.repository.name }} \
@@ -184,4 +184,3 @@ jobs:
             --revision=${{ github.sha }} \
             -f ./deploy --prune --wait
 ```
-

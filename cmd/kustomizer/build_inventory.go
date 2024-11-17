@@ -39,7 +39,7 @@ import (
 	"sigs.k8s.io/kustomize/kyaml/filesys"
 	"sigs.k8s.io/yaml"
 
-	"github.com/stefanprodan/kustomizer/pkg/registry"
+	"github.com/rawmind0/kustomizer/pkg/registry"
 )
 
 var buildInventoryCmd = &cobra.Command{
@@ -80,7 +80,7 @@ func init() {
 	buildInventoryCmd.Flags().StringVarP(&buildInventoryArgs.kustomize, "kustomize", "k", "",
 		"Path to a directory that contains a kustomization.yaml.")
 	buildInventoryCmd.Flags().StringSliceVarP(&buildInventoryArgs.artifact, "artifact", "a", nil,
-		"OCI artifact URL in the format 'oci://registry/org/repo:tag' e.g. 'oci://docker.io/stefanprodan/app-deploy:v1.0.0'.")
+		"OCI artifact URL in the format 'oci://registry/org/repo:tag' e.g. 'oci://docker.io/rawmind0/app-deploy:v1.0.0'.")
 	buildInventoryCmd.Flags().StringSliceVarP(&buildInventoryArgs.patch, "patch", "p", nil,
 		"Path to a kustomization file that contains a list of patches.")
 	buildInventoryCmd.Flags().StringVarP(&buildInventoryArgs.output, "output", "o", "yaml",

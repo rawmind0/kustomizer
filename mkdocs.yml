@@ -4,8 +4,8 @@ site_description: |
 site_author: Stefan Prodan
 site_url: https://kustomizer.dev
 
-repo_name: stefanprodan/kustomizer
-repo_url: https://github.com/stefanprodan/kustomizer
+repo_name: rawmind0/kustomizer
+repo_url: https://github.com/rawmind0/kustomizer
 edit_uri: ""
 
 theme:

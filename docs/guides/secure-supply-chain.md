@@ -1,7 +1,7 @@
 # Secure your Kubernetes supply chain with Kustomizer and Cosign
 
 Kustomizer offers a way to distribute Kubernetes configuration as OCI artifacts.
-This means you can store your application configuration in the same 
+This means you can store your application configuration in the same
 registry where your application container images are.
 
 [Cosign](https://github.com/sigstore/cosign) is tool for signing and verifying OCI artifacts.
@@ -24,7 +24,7 @@ and the config images (created with Kustomizer).
     - inspect the config image and extract the app container image name
     - verify the container image signature
     - scan the container image for vulnerabilities
-    - deploy the app onto clusters using the Kubernetes manifests from the config image    
+    - deploy the app onto clusters using the Kubernetes manifests from the config image
 
 What follows is a guide on how to use Kustomizer, Cosign, Trivy and
 GitHub Container Registry to build a secure delivery pipeline for a sample application.
@@ -38,7 +38,7 @@ Install [cosign](https://docs.sigstore.dev/cosign/installation/),
 and Kustomizer with Homebrew:
 
 ```shell
-brew install cosign yq aquasecurity/trivy/trivy stefanprodan/tap/kustomizer
+brew install cosign yq aquasecurity/trivy/trivy rawmind0/tap/kustomizer
 ```
 
 Generate a cosign key pair for image signing with:
@@ -56,7 +56,7 @@ export GITHUB_USER="YOUR-GITHUB-USERNAME"
 ```
 
 Generate a [personal access token (PAT)](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
-with read and write access to GitHub Container Registry. 
+with read and write access to GitHub Container Registry.
 
 Use the PAT to sign in to the container registry service at ghcr.io:
 
@@ -70,11 +70,11 @@ $ echo $CR_PAT | docker login ghcr.io -u ${GITHUB_USER} --password-stdin
 Clone the Kustomizer Git repository locally:
 
 ```bash
-git clone https://github.com/stefanprodan/kustomizer
+git clone https://github.com/rawmind0/kustomizer
 cd kustomizer
 ```
 
-You'll be using a sample web application composed of two [podinfo](https://github.com/stefanprodan/podinfo)
+You'll be using a sample web application composed of two [podinfo](https://github.com/rawmind0/podinfo)
 instances called `frontend` and `backend`, and a redis instance called `cache`.
 The web application's Kubernetes configuration is located at `./examples/demo-app`.
 
@@ -110,9 +110,9 @@ Deployment/kustomizer-demo-app/cache
 Deployment/kustomizer-demo-app/frontend
 HorizontalPodAutoscaler/kustomizer-demo-app/backend
 HorizontalPodAutoscaler/kustomizer-demo-app/frontend
-pushing image ghcr.io/stefanprodan/kustomizer-demo-app:1.0.0
-published digest ghcr.io/stefanprodan/kustomizer-demo-app@sha256:91d2bd8e0f1620e17e9d4c308ab87903644a952969d8ff52b601be0bffdca096
-cosign pushing signature to: ghcr.io/stefanprodan/kustomizer-demo-app
+pushing image ghcr.io/rawmind0/kustomizer-demo-app:1.0.0
+published digest ghcr.io/rawmind0/kustomizer-demo-app@sha256:91d2bd8e0f1620e17e9d4c308ab87903644a952969d8ff52b601be0bffdca096
+cosign pushing signature to: ghcr.io/rawmind0/kustomizer-demo-app
 ```
 
 Tag the config image as latest:
@@ -127,13 +127,13 @@ Verify the config image using your cosign public key:
 
 ```console
 $ cosign verify --key cosign.pub ${CONFIG_IMAGE}:${CONFIG_VERSION}
-Verification for ghcr.io/stefanprodan/kustomizer-demo-app:1.0.0 --
+Verification for ghcr.io/rawmind0/kustomizer-demo-app:1.0.0 --
 The following checks were performed on each of these signatures:
   - The cosign claims were validated
   - The signatures were verified against the specified public key
   - Any certificates were verified against the Fulcio roots.
 
-[{"critical":{"identity":{"docker-reference":"ghcr.io/stefanprodan/kustomizer-demo-app"},"image":{"docker-manifest-digest":"sha256:148c7452232a334e4843048ec41180c0c23644c30e87672bd961f31ee7ac2fca"},"type":"cosign container image signature"},"optional":null}]
+[{"critical":{"identity":{"docker-reference":"ghcr.io/rawmind0/kustomizer-demo-app"},"image":{"docker-manifest-digest":"sha256:148c7452232a334e4843048ec41180c0c23644c30e87672bd961f31ee7ac2fca"},"type":"cosign container image signature"},"optional":null}]
 ```
 
 Verify the image using your cosign public key and list the Kubernetes manifests from the config image:
@@ -141,7 +141,7 @@ Verify the image using your cosign public key and list the Kubernetes manifests 
 ```console
 $ kustomizer inspect artifact oci://${CONFIG_IMAGE}:${CONFIG_VERSION} \
     --verify --cosign-key cosign.pub
-Artifact: oci:// ghcr.io/stefanprodan/kustomizer-demo-app@sha256:98ebc5889a1031efe84d0d27cff4a235b9fadd5378781789b8e44cbf177424cd
+Artifact: oci:// ghcr.io/rawmind0/kustomizer-demo-app@sha256:98ebc5889a1031efe84d0d27cff4a235b9fadd5378781789b8e44cbf177424cd
 BuiltBy: kustomizer/v2.0.0
 VerifiedBy: cosign
 CreatedAt: 2021-12-15T10:05:46Z
@@ -152,11 +152,11 @@ Resources:
 - Service/kustomizer-demo-app/cache
 - Service/kustomizer-demo-app/frontend
 - Deployment/kustomizer-demo-app/backend
-  - ghcr.io/stefanprodan/podinfo:6.0.0
+  - ghcr.io/rawmind0/podinfo:6.0.0
 - Deployment/kustomizer-demo-app/cache
   - public.ecr.aws/docker/library/redis:6.2.0
 - Deployment/kustomizer-demo-app/frontend
-  - ghcr.io/stefanprodan/podinfo:6.0.0
+  - ghcr.io/rawmind0/podinfo:6.0.0
 - HorizontalPodAutoscaler/kustomizer-demo-app/backend
 - HorizontalPodAutoscaler/kustomizer-demo-app/frontend
 ```
@@ -178,7 +178,7 @@ $ kustomizer apply inventory kustomizer-demo-app --wait --prune \
   --artifact oci://${CONFIG_IMAGE}:${CONFIG_VERSION} \
   --source ${CONFIG_IMAGE} \
   --revision ${CONFIG_VERSION}
-pulling ghcr.io/stefanprodan/kustomizer-demo-app:1.0.0
+pulling ghcr.io/rawmind0/kustomizer-demo-app:1.0.0
 applying 10 manifest(s)...
 Namespace/kustomizer-demo-app created
 ConfigMap/kustomizer-demo-app/redis-config-bd2fcfgt6k created
@@ -198,8 +198,8 @@ List inventories:
 
 ```console
 $ kustomizer get inventories -n default
-NAME               	ENTRIES	SOURCE                                  	REVISION	LAST APPLIED         
-kustomizer-demo-app	10     	ghcr.io/stefanprodan/kustomizer-demo-app	v1.0.0  	2021-12-16T10:33:10Z
+NAME               	ENTRIES	SOURCE                                  	REVISION	LAST APPLIED
+kustomizer-demo-app	10     	ghcr.io/rawmind0/kustomizer-demo-app	v1.0.0  	2021-12-16T10:33:10Z
 ```
 
 Inspect the inventory to find the config image digest:
@@ -208,10 +208,10 @@ Inspect the inventory to find the config image digest:
 $ kustomizer inspect inv kustomizer-demo-app -n default
 Inventory: default/kustomizer-demo-app
 LastAppliedAt: 2021-12-20T23:05:45Z
-Source: oci://ghcr.io/stefanprodan/kustomizer-demo-app
+Source: oci://ghcr.io/rawmind0/kustomizer-demo-app
 Revision: v1.0.0
 Artifacts:
-- oci://ghcr.io/stefanprodan/kustomizer-demo-app@sha256:d47a1734843b7144b6fb2f74d525abaaa63ca3ab8c0c82dc748acd541332df9f
+- oci://ghcr.io/rawmind0/kustomizer-demo-app@sha256:d47a1734843b7144b6fb2f74d525abaaa63ca3ab8c0c82dc748acd541332df9f
 Resources:
 - Namespace/kustomizer-demo-app
 - ConfigMap/kustomizer-demo-app/redis-config-bd2fcfgt6k
@@ -265,7 +265,7 @@ Pull the latest config image and diff changes:
 
 ```console
 $ kustomizer diff inventory kustomizer-demo-app --prune \
-    --artifact oci://${CONFIG_IMAGE}:latest 
+    --artifact oci://${CONFIG_IMAGE}:latest
 ► Deployment/kustomizer-demo-app/cache drifted
 @@ -5,7 +5,7 @@
      deployment.kubernetes.io/revision: "1"
@@ -294,7 +294,7 @@ $ kustomizer apply inventory kustomizer-demo-app --wait --prune \
   --artifact oci://${CONFIG_IMAGE}:latest \
   --source ${CONFIG_IMAGE} \
   --revision ${CONFIG_VERSION}
-pulling ghcr.io/stefanprodan/kustomizer-demo-app:latest
+pulling ghcr.io/rawmind0/kustomizer-demo-app:latest
 applying 10 manifest(s)...
 Namespace/kustomizer-demo-app unchanged
 ConfigMap/kustomizer-demo-app/redis-config-bd2fcfgt6k unchanged
@@ -323,7 +323,7 @@ $ kustomizer apply inventory kustomizer-demo-app --wait --prune \
   --source ${CONFIG_IMAGE} \
   --revision ${CONFIG_VERSION} \
   --patch ./examples/patches/safe-to-evict.yaml
-pulling ghcr.io/stefanprodan/kustomizer-demo-app:1.0.1
+pulling ghcr.io/rawmind0/kustomizer-demo-app:1.0.1
 applying 10 manifest(s)...
 Namespace/kustomizer-demo-app unchanged
 ConfigMap/kustomizer-demo-app/redis-config-bd2fcfgt6k unchanged

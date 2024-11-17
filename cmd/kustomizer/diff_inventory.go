@@ -30,8 +30,8 @@ import (
 	"github.com/spf13/cobra"
 	"sigs.k8s.io/yaml"
 
-	"github.com/stefanprodan/kustomizer/pkg/inventory"
-	"github.com/stefanprodan/kustomizer/pkg/registry"
+	"github.com/rawmind0/kustomizer/pkg/inventory"
+	"github.com/rawmind0/kustomizer/pkg/registry"
 )
 
 var diffInventoryCmd = &cobra.Command{
@@ -72,7 +72,7 @@ func init() {
 	diffInventoryCmd.Flags().StringVarP(&diffInventoryArgs.kustomize, "kustomize", "k", "",
 		"Path to a directory that contains a kustomization.yaml.")
 	diffInventoryCmd.Flags().StringSliceVarP(&diffInventoryArgs.artifact, "artifact", "a", nil,
-		"OCI artifact URL in the format 'oci://registry/org/repo:tag' e.g. 'oci://docker.io/stefanprodan/app-deploy:v1.0.0'.")
+		"OCI artifact URL in the format 'oci://registry/org/repo:tag' e.g. 'oci://docker.io/rawmind0/app-deploy:v1.0.0'.")
 	diffInventoryCmd.Flags().StringSliceVarP(&diffInventoryArgs.patch, "patch", "p", nil,
 		"Path to a kustomization file that contains a list of patches.")
 	diffInventoryCmd.Flags().BoolVar(&diffInventoryArgs.prune, "prune", false, "Delete stale objects from the cluster.")

@@ -26,7 +26,7 @@ import (
 func TestGetInventories(t *testing.T) {
 	g := NewWithT(t)
 	id := "get-" + randStringRunes(5)
-	source := "https://github.com/stefanprodan/kustomizer.git"
+	source := "https://github.com/rawmind0/kustomizer.git"
 	revision := "v2.0.0"
 
 	err := createNamespace(id)

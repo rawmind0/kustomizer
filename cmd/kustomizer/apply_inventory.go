@@ -28,8 +28,8 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 
-	"github.com/stefanprodan/kustomizer/pkg/inventory"
-	"github.com/stefanprodan/kustomizer/pkg/registry"
+	"github.com/rawmind0/kustomizer/pkg/inventory"
+	"github.com/rawmind0/kustomizer/pkg/registry"
 )
 
 var applyInventoryCmd = &cobra.Command{
@@ -81,7 +81,7 @@ func init() {
 	applyInventoryCmd.Flags().StringVarP(&applyInventoryArgs.kustomize, "kustomize", "k", "",
 		"Path to a directory that contains a kustomization.yaml.")
 	applyInventoryCmd.Flags().StringSliceVarP(&applyInventoryArgs.artifact, "artifact", "a", nil,
-		"OCI artifact URL in the format 'oci://registry/org/repo:tag' e.g. 'oci://docker.io/stefanprodan/app-deploy:v1.0.0'.")
+		"OCI artifact URL in the format 'oci://registry/org/repo:tag' e.g. 'oci://docker.io/rawmind0/app-deploy:v1.0.0'.")
 	applyInventoryCmd.Flags().StringSliceVarP(&applyInventoryArgs.patch, "patch", "p", nil,
 		"Path to a kustomization file that contains a list of patches.")
 	applyInventoryCmd.Flags().BoolVar(&applyInventoryArgs.wait, "wait", false, "Wait for the applied Kubernetes objects to become ready.")

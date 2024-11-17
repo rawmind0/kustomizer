@@ -2,10 +2,10 @@
 
 This guide shows you how to deploy a sample application to a Kubernetes cluster.
 
-You'll be using a sample app composed of two [podinfo](https://github.com/stefanprodan/podinfo)
+You'll be using a sample app composed of two [podinfo](https://github.com/rawmind0/podinfo)
 instances called `frontend` and `backend`, and a redis instance called `cache`.
 The application's Kustomize overlay is located at
-[examples/demo-app](https://github.com/stefanprodan/kustomizer/tree/main/examples/demo-app).
+[examples/demo-app](https://github.com/rawmind0/kustomizer/tree/main/examples/demo-app).
 
 ## Before you begin
 
@@ -18,14 +18,14 @@ The application's Kustomize overlay is located at
     You can set a different context with `--context=<your context>`.
     You can also specify a different kubeconfig with `--kubeconfig` or with the `KUBECONFIG` env var.
 
-## Manual deployment 
+## Manual deployment
 
 ### Clone the app repository
 
 Clone the Kustomizer Git repository locally:
 
 ```bash
-git clone https://github.com/stefanprodan/kustomizer
+git clone https://github.com/rawmind0/kustomizer
 cd kustomizer
 ```
 
@@ -84,19 +84,19 @@ applies the resources with server-side apply, and finally waits for the workload
 !!! info "Apply from other sources"
 
     Besides kustomize overlays, you can apply plain Kubernetes manifests using the `-f` flag:
-    
+
     ```shell
     kustomizer apply inventory demo-app \
         -f ./path/to/dir/ \
         -f ./path/to/manifest.yaml
     ```
-    
+
     An alternative to local files, is to apply Kubernetes configs from container registries
     using the `--artifact` flag:
 
     ```shell
     kustomizer apply inventory demo-app \
-        --artifact oci://ghcr.io/stefanprodan/kustomizer-demo-app:1.0.0
+        --artifact oci://ghcr.io/rawmind0/kustomizer-demo-app:1.0.0
     ```
 
     For more details see `kustomizer apply inventory --help`.
@@ -108,8 +108,8 @@ You can list all inventories in a specific namespace with:
 
 ```console
 $ kustomizer get inventories -n default
-NAME    	ENTRIES	SOURCE                                        	REVISION	LAST APPLIED         
-demo-app	10     	https://github.com/stefanprodan/kustomizer.git	6aca8c2 	2021-12-22T09:15:22Z
+NAME    	ENTRIES	SOURCE                                        	REVISION	LAST APPLIED
+demo-app	10     	https://github.com/rawmind0/kustomizer.git	6aca8c2 	2021-12-22T09:15:22Z
 ```
 
 You can view the Kubernetes objects in an inventory with:
@@ -118,7 +118,7 @@ You can view the Kubernetes objects in an inventory with:
 $ kustomizer inspect inventory demo-app
 Inventory: default/demo-app
 LastAppliedAt: 2021-12-22T09:15:22Z
-Source: https://github.com/stefanprodan/kustomizer.git
+Source: https://github.com/rawmind0/kustomizer.git
 Revision: 6aca8c2
 Resources:
 - Namespace/kustomizer-demo-app
@@ -252,7 +252,7 @@ jobs:
         with:
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
       - name: Setup kustomizer
-        uses: stefanprodan/kustomizer/action@main
+        uses: rawmind0/kustomizer/action@main
       - name: Diff
         continue-on-error: true
         run: |
